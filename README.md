@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-<script src="https://ad.gigapub.tech/script?id=1263"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Telegram Mini App with Giga.pub Ads</title>
 
-  <!-- Telegram WebApp SDK -->
+  <!-- ✅ Telegram SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <!-- Giga.pub SDK -->
-  <script src="https://sdk.giga.pub/webapp.js"></script>
+  <!-- ✅ Your Giga.pub Ad Script (ID 1263) -->
+  <script src="https://ad.gigapub.tech/script?id=1263"></script>
 
   <style>
     body {
@@ -25,11 +23,15 @@
       background-color: #0088cc;
       color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 14px 24px;
       font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 30px;
+    }
+
+    button:hover {
+      background-color: #0070aa;
     }
   </style>
 </head>
@@ -37,36 +39,34 @@
   <h2>🚀 Telegram Mini App</h2>
   <p id="welcome">Loading...</p>
 
-  <button onclick="showRewardedAd()">🎥 Watch Ad to Earn</button>
+  <!-- ✅ Button to show ad -->
+  <button onclick="showRewardedAd()">🎥 Watch Ad & Earn</button>
 
   <script>
-    // Initialize Telegram
+    // Telegram init
     const tg = window.Telegram.WebApp;
-    tg.ready();  // Required by Telegram
+    tg.ready();
     tg.expand();
 
-    const user = tg.initDataUnsafe.user;
-    if (user) {
-      document.getElementById("welcome").innerText = `Welcome, ${user.first_name || 'User'}!`;
-    } else {
-      document.getElementById("welcome").innerText = "Welcome, Guest!";
-    }
+    const user = tg.initDataUnsafe?.user;
+    document.getElementById("welcome").innerText =
+      user ? `Welcome, ${user.first_name}!` : "Welcome, guest!";
 
-    // Show Rewarded Ad
+    // ✅ Show Ad using Giga script
     function showRewardedAd() {
       if (typeof Giga !== 'undefined') {
         Giga.showAd({
           type: "rewarded",
           onComplete: () => {
-            alert("✅ Thanks! You've earned points.");
+            alert("✅ You've earned 10 points!");
           },
           onError: (err) => {
-            console.error("Ad Error:", err);
             alert("❌ Ad failed to load.");
+            console.error(err);
           }
         });
       } else {
-        alert("⚠️ Giga.pub SDK not loaded!");
+        alert("⚠️ Giga script not loaded!");
       }
     }
   </script>
